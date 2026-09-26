@@ -1,7 +1,19 @@
 :host {
   display: block;
   min-height: 100dvh;
-  background-color: #f5f5f5;
+  background: linear-gradient(180deg, #f0f2f5 0%, #e8ecf1 100%);
+}
+
+.app-toolbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.toolbar-icon {
+  margin-right: 8px;
 }
 
 .toolbar-spacer {
@@ -16,14 +28,69 @@
 
 .welcome-card {
   margin-bottom: 1.5rem;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
 }
 
-.success-chip {
-  margin-top: 0.5rem;
+.welcome-card mat-card-header {
+  padding-bottom: 0;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+.avatar mat-icon {
+  color: white;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.welcome-card mat-card-title {
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.welcome-card mat-card-subtitle {
+  color: #636e72;
+}
+
+.welcome-card mat-card-content {
+  padding-top: 0.75rem;
 }
 
 .activity-card {
-  mat-card-title {
-    font-size: 1.125rem;
-  }
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+.activity-card mat-card-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.activity-icon {
+  color: #667eea;
+}
+
+mat-list-item {
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 2px;
+}
+
+mat-list-item:hover {
+  background: rgba(102, 126, 234, 0.04);
+}
+
+mat-chip {
+  font-size: 0.75rem;
 }

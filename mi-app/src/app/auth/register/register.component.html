@@ -6,9 +6,11 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <h1 class="form-title">Crear cuenta</h1>
+      <p class="form-subtitle">Regístrate para empezar</p>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Nombre completo</mat-label>
+        <mat-icon matIconPrefix>person</mat-icon>
         <input
           matInput
           id="registerFullName"
@@ -25,6 +27,7 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Correo electrónico</mat-label>
+        <mat-icon matIconPrefix>email</mat-icon>
         <input
           matInput
           id="registerEmail"
@@ -41,6 +44,7 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Contraseña</mat-label>
+        <mat-icon matIconPrefix>lock</mat-icon>
         <input
           matInput
           id="registerPassword"
@@ -67,7 +71,7 @@
         @if (isLoading()) {
           <mat-spinner diameter="20" />
         }
-        {{ isLoading() ? 'Registrando...' : 'Registrarse' }}
+        {{ isLoading() ? 'Registrando...' : 'Crear cuenta' }}
       </button>
 
       <p class="footer-text">

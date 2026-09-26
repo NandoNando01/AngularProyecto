@@ -1,4 +1,5 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="app-toolbar">
+  <mat-icon class="toolbar-icon">dashboard</mat-icon>
   <span>Mi App</span>
   <span class="toolbar-spacer"></span>
   <button mat-button (click)="logout()">
@@ -10,27 +11,33 @@
 <div class="container">
   <mat-card appearance="outlined" class="welcome-card">
     <mat-card-header>
+      <div mat-card-avatar class="avatar">
+        <mat-icon>person</mat-icon>
+      </div>
       <mat-card-title>Hola, {{ currentUser()?.fullName }}</mat-card-title>
       <mat-card-subtitle>{{ currentUser()?.email }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <div class="success-chip">
-        <mat-chip-set>
-          <mat-chip highlighted color="primary">Sesión iniciada correctamente</mat-chip>
-        </mat-chip-set>
-      </div>
+      <mat-chip-set>
+        <mat-chip highlighted color="primary">
+          <mat-icon matChipIcon>check_circle</mat-icon>
+          Sesión iniciada correctamente
+        </mat-chip>
+      </mat-chip-set>
     </mat-card-content>
   </mat-card>
 
   <mat-card appearance="outlined" class="activity-card">
     <mat-card-header>
+      <mat-icon mat-card-avatar>history</mat-icon>
       <mat-card-title>Actividad reciente</mat-card-title>
+      <mat-card-subtitle>Tus últimas acciones en el sistema</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <mat-list>
         @for (actividad of actividades; track actividad.name) {
-          <mat-list-item>
-            <mat-icon matListItemIcon>{{ actividad.icon }}</mat-icon>
+          <mat-list-item matRipple>
+            <mat-icon matListItemIcon class="activity-icon">{{ actividad.icon }}</mat-icon>
             <span matListItemTitle>{{ actividad.name }}</span>
             <span matListItemMeta>
               <mat-chip>{{ actividad.status }}</mat-chip>

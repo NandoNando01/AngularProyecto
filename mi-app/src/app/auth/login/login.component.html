@@ -5,10 +5,12 @@
     }
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-      <h1 class="form-title">Iniciar Sesión</h1>
+      <h1 class="form-title">Bienvenido</h1>
+      <p class="form-subtitle">Inicia sesión para continuar</p>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Correo electrónico</mat-label>
+        <mat-icon matIconPrefix>email</mat-icon>
         <input
           matInput
           id="loginEmail"
@@ -25,12 +27,13 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Contraseña</mat-label>
+        <mat-icon matIconPrefix>lock</mat-icon>
         <input
           matInput
           id="loginPassword"
           type="password"
           formControlName="password"
-          placeholder="••••••••"
+          placeholder="Ingrese su contraseña"
         />
         @if (form.controls.password.errors?.['required']) {
           <mat-error>La contraseña es obligatoria.</mat-error>
@@ -52,7 +55,7 @@
 
       <p class="footer-text">
         ¿No tienes cuenta?
-        <a routerLink="/register">Regístrate</a>
+        <a routerLink="/register">Crear cuenta</a>
       </p>
     </form>
   </mat-card-content>

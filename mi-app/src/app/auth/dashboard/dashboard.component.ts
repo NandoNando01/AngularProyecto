@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -17,6 +18,7 @@ import { AuthService } from '../../services/auth.service';
     MatListModule,
     MatChipsModule,
     MatIconModule,
+    MatRippleModule,
   ],
   styleUrl: './dashboard.component.css',
   templateUrl: './dashboard.component.html',
