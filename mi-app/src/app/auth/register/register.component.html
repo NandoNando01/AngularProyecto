@@ -16,7 +16,6 @@
           id="registerFullName"
           type="text"
           formControlName="fullName"
-          placeholder="Ingrese su nombre completo"
         />
         @if (form.controls.fullName.errors?.['required']) {
           <mat-error>El nombre es obligatorio.</mat-error>
@@ -33,7 +32,6 @@
           id="registerEmail"
           type="email"
           formControlName="email"
-          placeholder="nombre@example.com"
         />
         @if (form.controls.email.errors?.['required']) {
           <mat-error>El correo es obligatorio.</mat-error>
@@ -50,7 +48,6 @@
           id="registerPassword"
           type="password"
           formControlName="password"
-          placeholder="Mínimo 8 caracteres, una mayúscula y un número"
         />
         @if (form.controls.password.errors?.['required']) {
           <mat-error>La contraseña es obligatoria.</mat-error>

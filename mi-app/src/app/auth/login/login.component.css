@@ -9,37 +9,38 @@
 
 mat-card {
   width: 100%;
-  max-width: 420px;
-  padding: 2.5rem 2rem;
+  max-width: 400px;
+  padding: 2rem 1.75rem;
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
 }
 
 .full-width {
   width: 100%;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .form-title {
   margin: 0 0 0.25rem;
-  font-size: 1.75rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 600;
   text-align: center;
-  color: #2d3436;
+  color: #1a1a2e;
 }
 
 .form-subtitle {
   text-align: center;
   color: #636e72;
-  margin: 0 0 1.75rem;
-  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
 }
 
 .footer-text {
   text-align: center;
-  margin: 1.5rem 0 0;
+  margin: 1.25rem 0 0;
   color: #636e72;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .footer-text a {
@@ -58,17 +59,20 @@ mat-card {
   padding: 0.75rem 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   border: 1px solid #fed7d7;
 }
 
 button[mat-flat-button] {
-  height: 48px;
-  font-size: 1rem;
+  height: 46px;
+  font-size: 0.95rem;
   border-radius: 8px;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
+  letter-spacing: 0.3px;
 }
 
 mat-form-field {
-  --mdc-outlined-text-field-outline-color: #dfe6e9;
+  --mdc-outlined-text-field-outline-color: #e2e8f0;
+  --mdc-outlined-text-field-focus-outline-color: #667eea;
+  --mdc-outlined-text-field-label-text-color: #718096;
 }
