@@ -1,0 +1,59 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    @if (errorMessage()) {
+      <div class="error-banner">{{ errorMessage() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <h1 class="form-title">Iniciar Sesión</h1>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          id="loginEmail"
+          type="email"
+          formControlName="email"
+          placeholder="nombre@example.com"
+        />
+        @if (form.controls.email.errors?.['required']) {
+          <mat-error>El correo es obligatorio.</mat-error>
+        } @else if (form.controls.email.errors?.['email']) {
+          <mat-error>Ingrese un correo electrónico válido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          id="loginPassword"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+        />
+        @if (form.controls.password.errors?.['required']) {
+          <mat-error>La contraseña es obligatoria.</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="full-width"
+        type="submit"
+        [disabled]="form.invalid || isLoading()"
+      >
+        @if (isLoading()) {
+          <mat-spinner diameter="20" />
+        }
+        {{ isLoading() ? 'Ingresando...' : 'Iniciar Sesión' }}
+      </button>
+
+      <p class="footer-text">
+        ¿No tienes cuenta?
+        <a routerLink="/register">Regístrate</a>
+      </p>
+    </form>
+  </mat-card-content>
+</mat-card>

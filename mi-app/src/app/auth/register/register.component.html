@@ -1,0 +1,79 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    @if (errorMessage()) {
+      <div class="error-banner">{{ errorMessage() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <h1 class="form-title">Crear cuenta</h1>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre completo</mat-label>
+        <input
+          matInput
+          id="registerFullName"
+          type="text"
+          formControlName="fullName"
+          placeholder="Ingrese su nombre completo"
+        />
+        @if (form.controls.fullName.errors?.['required']) {
+          <mat-error>El nombre es obligatorio.</mat-error>
+        } @else if (form.controls.fullName.errors?.['minlength'] || form.controls.fullName.errors?.['maxlength']) {
+          <mat-error>El nombre debe tener entre 2 y 100 caracteres.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          id="registerEmail"
+          type="email"
+          formControlName="email"
+          placeholder="nombre@example.com"
+        />
+        @if (form.controls.email.errors?.['required']) {
+          <mat-error>El correo es obligatorio.</mat-error>
+        } @else if (form.controls.email.errors?.['email']) {
+          <mat-error>Ingrese un correo electrónico válido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          id="registerPassword"
+          type="password"
+          formControlName="password"
+          placeholder="Mínimo 8 caracteres, una mayúscula y un número"
+        />
+        @if (form.controls.password.errors?.['required']) {
+          <mat-error>La contraseña es obligatoria.</mat-error>
+        } @else if (form.controls.password.errors?.['minlength']) {
+          <mat-error>La contraseña debe tener al menos 8 caracteres.</mat-error>
+        } @else if (form.controls.password.errors?.['pattern']) {
+          <mat-error>Debe incluir al menos una mayúscula y un número.</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="full-width"
+        type="submit"
+        [disabled]="form.invalid || isLoading()"
+      >
+        @if (isLoading()) {
+          <mat-spinner diameter="20" />
+        }
+        {{ isLoading() ? 'Registrando...' : 'Registrarse' }}
+      </button>
+
+      <p class="footer-text">
+        ¿Ya tienes cuenta?
+        <a routerLink="/login">Inicia sesión</a>
+      </p>
+    </form>
+  </mat-card-content>
+</mat-card>
