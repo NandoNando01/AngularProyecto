@@ -26,3 +26,7 @@ Este proyecto sigue **Desarrollo Guiado por Especificaciones**. La fuente de ver
 5. Validar: `node scripts/validate-spec.mjs`
 
 **Nunca** cambies el contrato del backend o frontend sin actualizar la spec primero.
+
+## Documentación técnica
+
+Todo cambio significativo en cualquier subproyecto debe documentarse con un resumen técnico en `docs/`. Crear un archivo por feature o cambio con formato `docs/YYYY-MMDD-breve-descripcion.md` incluyendo: qué se cambió, por qué, y cómo afecta a la otra pila (si aplica).

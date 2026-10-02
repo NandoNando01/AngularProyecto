@@ -1,4 +1,4 @@
-<!-- Sync Impact Report: v0.0.0 → v1.0.0. Los 5 principios y 2 secciones creados desde cero. Gobierno establecido. Sin elementos pendientes. -->
+<!-- Sync Impact Report: v1.0.0 → v1.1.0. Nuevo principio VI agregado (Documentación técnica). Gobierno actualizado con cláusula de enmiendas documentadas en /docs. Sin elementos pendientes. -->
 
 # Constitución de Angula_Proyecto
 <!-- Constitución de especificaciones para la aplicación full-stack AngularProyecto -->
@@ -19,6 +19,9 @@ El frontend usa `bootstrapApplication` con componentes standalone (sin NgModules
 
 ### V. Seguridad y Autenticación
 Autenticación JWT Bearer token con hash de contraseñas PBKDF2 + SHA-256. Todos los endpoints `/api/product` requieren autenticación. `/api/auth/register` y `/api/auth/login` son públicos. Validación de entrada en todos los DTOs con mensajes de error adecuados. Las contraseñas DEBEN contener al menos una mayúscula y un dígito (mín. 8 caracteres).
+
+### VI. Documentación Técnica
+Todo cambio significativo en cualquier subproyecto (`Api/` o `mi-app/`) DEBE documentarse con un resumen técnico en `docs/`. Cada feature o cambio genera un archivo `docs/YYYY-MMDD-breve-descripcion.md` que explica: qué se cambió, por qué, y cómo afecta al otro stack (si aplica). La documentación es un entregable obligatorio del cambio, no un accesorio opcional.
 
 ## Stack Tecnológico
 
@@ -46,4 +49,4 @@ Los comandos se ejecutan desde los directorios de cada subproyecto (no desde la 
 
 Esta constitución prevalece sobre todas las demás prácticas. Las enmiendas requieren documentación, aprobación y plan de migración. Todos los PRs deben verificar cumplimiento con `specs/openapi.yaml`. La complejidad debe justificarse — empezar simple, principios YAGNI. Usar los archivos `AGENTS.md` como guía de desarrollo en tiempo de ejecución a nivel de proyecto.
 
-**Versión**: 1.0.0 | **Ratificada**: 2026-10-01 | **Última enmienda**: 2026-10-01
+**Versión**: 1.1.0 | **Ratificada**: 2026-10-01 | **Última enmienda**: 2026-10-01
