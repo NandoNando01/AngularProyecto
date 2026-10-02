@@ -1,40 +1,40 @@
 # mi-app — Angular 22 + SSR + Vitest
 
-## Dev commands
+## Comandos de desarrollo
 
-| Command | Action |
+| Comando | Acción |
 |---------|--------|
-| `npm start` | Dev server on `http://localhost:4200` |
-| `npm run build` | Production build to `dist/` |
-| `npm test` | Run Vitest unit tests (managed by Angular CLI) |
-| `npm run watch` | Build with `--configuration development` watch mode |
-| `npm run serve:ssr:mi-app` | Serve SSR build from `dist/mi-app/server/server.mjs` |
-| `ng generate component <name>` | Generate standalone component |
+| `npm start` | Servidor de desarrollo en `http://localhost:4200` |
+| `npm run build` | Build de producción en `dist/` |
+| `npm test` | Ejecutar tests unitarios Vitest (gestionado por Angular CLI) |
+| `npm run watch` | Build con `--configuration development` watch mode |
+| `npm run serve:ssr:mi-app` | Servir build SSR desde `dist/mi-app/server/server.mjs` |
+| `ng generate component <name>` | Generar componente standalone |
 
-No eslint or stylelint configured. Format with Prettier (config in `.prettierrc`: `printWidth: 100`, `singleQuote: true`, HTML uses `"angular"` parser).
+Sin eslint ni stylelint configurados. Formatear con Prettier (config en `.prettierrc`: `printWidth: 100`, `singleQuote: true`, HTML usa parser `"angular"`).
 
-## Architecture
+## Arquitectura
 
-- **Standalone components** (`bootstrapApplication`, no NgModules). New components use `imports` array on `@Component`.
-- **SSR** via `@angular/ssr` + Express. Server entry: `src/server.ts`, listens on `$PORT` or `4000`.
-- **Testing**: Vitest (no Karma). No vitest config file — `@angular/build:unit-test` builder manages it. Types from `vitest/globals` in `tsconfig.spec.json`.
-- **Bootstrap 5** available globally from `styles.css`.
-- Routes defined in `src/app/app.routes.ts` (currently empty). SSR route modes in `src/app/app.routes.server.ts` (default: `Prerender`).
+- **Componentes standalone** (`bootstrapApplication`, sin NgModules). Los nuevos componentes usan array `imports` en `@Component`.
+- **SSR** via `@angular/ssr` + Express. Entrada del servidor: `src/server.ts`, escucha en `$PORT` o `4000`.
+- **Testing**: Vitest (sin Karma). Sin archivo de config vitest — el builder `@angular/build:unit-test` lo gestiona. Tipos desde `vitest/globals` en `tsconfig.spec.json`.
+- **Bootstrap 5** disponible globalmente desde `styles.css`.
+- Rutas definidas en `src/app/app.routes.ts` (actualmente vacías). Modos de ruta SSR en `src/app/app.routes.server.ts` (default: `Prerender`).
 
-## Spec-Driven Development (SDD)
+## Desarrollo Guiado por Especificaciones (SDD)
 
-Frontend types are **auto-generated** from `specs/openapi.yaml` (project root):
+Los tipos del frontend se **auto-generan** desde `specs/openapi.yaml` (raíz del proyecto):
 
 ```bash
 npm run generate:api-types   # → src/app/models/generated/api-types.ts
 ```
 
-- **Always** regenerate after any spec change.
-- `src/app/models/auth.model.ts` re-exports from `generated/api-types.ts` — do **not** edit manual type definitions.
+- **Siempre** regenerar después de cualquier cambio en la spec.
+- `src/app/models/auth.model.ts` re-exporta desde `generated/api-types.ts` — **no** editar definiciones de tipos manuales.
 
-## File conventions
+## Convenciones de archivos
 
-- Tests: `src/**/*.spec.ts` (excluded from app build via `tsconfig.app.json`)
-- Components use `styleUrl` (singular) and `templateUrl` for external files. Signals for reactive state.
-- EditorConfig: 2-space indent, single quotes for TS.
-- `src/server.ts` can define Express API endpoints under `/api/*`.
+- Tests: `src/**/*.spec.ts` (excluidos del build de la app via `tsconfig.app.json`)
+- Los componentes usan `styleUrl` (singular) y `templateUrl` para archivos externos. Signals para estado reactivo.
+- EditorConfig: indentación de 2 espacios, comillas simples para TS.
+- `src/server.ts` puede definir endpoints Express API bajo `/api/*`.

@@ -1,65 +1,65 @@
 # Api — ASP.NET Core 8 Web API
 
-## Project structure
-- **Solution**: `Api.sln` (root) — projects `Api\Api.csproj` and `Api\Api.Tests\Api.Tests.csproj`
-- **Entrypoint**: `Api/Program.cs` using top-level statements, ASP.NET Core 8 setup
-- **Framework**: .NET 8, nullable enabled, implicit usings enabled
+## Estructura del proyecto
+- **Solución**: `Api.sln` (raíz) — proyectos `Api\Api.csproj` y `Api\Api.Tests\Api.Tests.csproj`
+- **Punto de entrada**: `Api/Program.cs` usando top-level statements, configuración ASP.NET Core 8
+- **Framework**: .NET 8, nullable habilitado, implicit usings habilitado
 - **EF Core 8 + SQL Server** (via docker-compose), Swagger 6.4.0
 
-## Duplicated directory quirk
-There are two nested project dirs: `Api/` and `Api/Api/`. Both `Api/Api.csproj` and `Api/Api/Api.csproj` exist. **Work from `Api/` (the first-level project), NOT `Api/Api/`.** The nested `Api/Api/Api/` is excluded from compilation via `Compile Remove="Api\**\*.cs"` in the csproj — do not edit files there.
+## Peculiaridad del directorio duplicado
+Hay dos directorios de proyecto anidados: `Api/` y `Api/Api/`. Ambos `Api/Api.csproj` y `Api/Api/Api.csproj` existen. **Trabajar desde `Api/` (el primer nivel), NO desde `Api/Api/`.** El `Api/Api/Api/` anidado está excluido de la compilación via `Compile Remove="Api\**\*.cs"` en el csproj — no editar archivos allí.
 
-## Architecture (mandatory rules)
-Layered architecture enforced:
-- `Controllers/` — thin HTTP controllers: validate model, delegate to services.
-- `Domain/Models/` — domain/database entities
-- `Domain/IService/` — business service interfaces
-- `Domain/iRepositories/` — repository + `IUnitOfWork` interfaces
-- `Service/` — business logic implementations
+## Arquitectura (reglas obligatorias)
+Arquitectura en capas exigida:
+- `Controllers/` — controladores HTTP delgados: validar modelo, delegar a servicios.
+- `Domain/Models/` — entidades de dominio/base de datos
+- `Domain/IService/` — interfaces de servicios de negocio
+- `Domain/iRepositories/` — interfaces de repositorio + `IUnitOfWork`
+- `Service/` — implementaciones de lógica de negocio
 - `Persistence/Contex/` — `ApiDbContext`
-- `Persistence/Repositories/` — repository + `UnitOfWork` implementations
-- `DTO/` — Data Transfer Objects (never expose entities directly)
-- `Utils/` — helpers, `ApiResponse<T>`, `ExceptionMiddleware`, exceptions
-- `Hubs/` — SignalR hubs (unused yet)
-- `Migrations/` — EF Core migrations
+- `Persistence/Repositories/` — implementaciones de repositorio + `UnitOfWork`
+- `DTO/` — Data Transfer Objects (nunca exponer entidades directamente)
+- `Utils/` — helpers, `ApiResponse<T>`, `ExceptionMiddleware`, excepciones
+- `Hubs/` — Hubs SignalR (aún sin usar)
+- `Migrations/` — Migraciones EF Core
 - `Dockerfile`, `docker-compose.yml`
 
-## Commands (run from `Api/`)
+## Comandos (ejecutar desde `Api/`)
 ```powershell
-# Build / test (solution includes Api + Api.Tests)
+# Build / test (la solución incluye Api + Api.Tests)
 dotnet build Api.sln
 dotnet test Api.sln
 
-# Run (launches Swagger UI at /swagger by default)
+# Ejecutar (lanza Swagger UI en /swagger por defecto)
 dotnet run --project Api/Api.csproj
 
-# EF migrations (uses local tool)
-dotnet tool restore               # installs local dotnet-ef 8.0.11
-dotnet ef migrations add <Name>   # via local tool: dotnet tool run dotnet-ef
+# Migraciones EF (usa herramienta local)
+dotnet tool restore               # instala dotnet-ef 8.0.11 local
+dotnet ef migrations add <Name>   # via herramienta local: dotnet tool run dotnet-ef
 dotnet ef database update
 ```
 
-**Use the LOCAL `dotnet-ef` (8.0.11) via `.config/dotnet-tools.json`. The global `dotnet-ef` is v10 and fails to build this net8.0 project.**
+**Usar el `dotnet-ef` LOCAL (8.0.11) via `.config/dotnet-tools.json`. El `dotnet-ef` global (v10) falla al compilar este proyecto net8.0.**
 
-## Dev server
+## Servidor de desarrollo
 - HTTP: `http://localhost:5169`
 - HTTPS: `https://localhost:7219`
-- Swagger UI launches on start in Development mode
-- SQL Server with docker: `docker compose up -d db` (SA password in docker-compose.yml)
+- Swagger UI se abre al iniciar en modo Development
+- SQL Server con docker: `docker compose up -d db` (contraseña SA en docker-compose.yml)
 
-## Conventions
-- Controller route: `api/[controller]`, DTOs for in/out, `ApiResponse<T>` envelope
-- DI via constructor; services depend on `IUnitOfWork`/repositories, not DbContext
-- Exceptions: throw `NotFoundException`/`BusinessException`; global `ExceptionMiddleware` maps them to 404/400
-- Business logic/service changes require unit tests in `Api/Api.Tests/` (xUnit + Moq)
+## Convenciones
+- Ruta del controller: `api/[controller]`, DTOs para entrada/salida, envoltura `ApiResponse<T>`
+- DI via constructor; los servicios dependen de `IUnitOfWork`/repositorios, no de DbContext
+- Excepciones: lanzar `NotFoundException`/`BusinessException`; el `ExceptionMiddleware` global las mapea a 404/400
+- Los cambios en lógica de negocio/servicios requieren tests unitarios en `Api/Api.Tests/` (xUnit + Moq)
 
-## Spec-Driven Development (SDD)
-The API **must** match `../specs/openapi.yaml` (relative to this dir).  
-**Workflow**: spec first → backend → frontend → validate.
+## Desarrollo Guiado por Especificaciones (SDD)
+La API **debe** coincidir con `../specs/openapi.yaml` (relativo a este directorio).  
+**Flujo**: spec primero → backend → frontend → validar.
 
-1. Edit `../specs/openapi.yaml` with new endpoints/DTOs/errors
-2. Build the .NET implementation
-3. Regenerate frontend types (`cd ../mi-app && npm run generate:api-types`)
-4. Validate: `node ../scripts/validate-spec.mjs`
+1. Editar `../specs/openapi.yaml` con nuevos endpoints/DTOs/errores
+2. Construir la implementación .NET
+3. Regenerar tipos del frontend (`cd ../mi-app && npm run generate:api-types`)
+4. Validar: `node ../scripts/validate-spec.mjs`
 
-**Do not** add endpoints or DTOs without updating the spec first.
+**No** agregar endpoints o DTOs sin actualizar la spec primero.
