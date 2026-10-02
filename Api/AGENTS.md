@@ -52,3 +52,14 @@ dotnet ef database update
 - DI via constructor; services depend on `IUnitOfWork`/repositories, not DbContext
 - Exceptions: throw `NotFoundException`/`BusinessException`; global `ExceptionMiddleware` maps them to 404/400
 - Business logic/service changes require unit tests in `Api/Api.Tests/` (xUnit + Moq)
+
+## Spec-Driven Development (SDD)
+The API **must** match `../specs/openapi.yaml` (relative to this dir).  
+**Workflow**: spec first → backend → frontend → validate.
+
+1. Edit `../specs/openapi.yaml` with new endpoints/DTOs/errors
+2. Build the .NET implementation
+3. Regenerate frontend types (`cd ../mi-app && npm run generate:api-types`)
+4. Validate: `node ../scripts/validate-spec.mjs`
+
+**Do not** add endpoints or DTOs without updating the spec first.

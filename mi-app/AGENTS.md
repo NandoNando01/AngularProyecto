@@ -21,6 +21,17 @@ No eslint or stylelint configured. Format with Prettier (config in `.prettierrc`
 - **Bootstrap 5** available globally from `styles.css`.
 - Routes defined in `src/app/app.routes.ts` (currently empty). SSR route modes in `src/app/app.routes.server.ts` (default: `Prerender`).
 
+## Spec-Driven Development (SDD)
+
+Frontend types are **auto-generated** from `specs/openapi.yaml` (project root):
+
+```bash
+npm run generate:api-types   # → src/app/models/generated/api-types.ts
+```
+
+- **Always** regenerate after any spec change.
+- `src/app/models/auth.model.ts` re-exports from `generated/api-types.ts` — do **not** edit manual type definitions.
+
 ## File conventions
 
 - Tests: `src/**/*.spec.ts` (excluded from app build via `tsconfig.app.json`)

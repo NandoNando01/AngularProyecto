@@ -1,0 +1,362 @@
+openapi: "3.0.3"
+info:
+  title: AngularProyecto API
+  description: |
+    API de gestión de productos y autenticación de usuarios.
+    Proyecto Angular + ASP.NET Core 8.
+  version: "1.0.0"
+  contact:
+    name: Diego Lacan
+servers:
+  - url: http://localhost:5169/api
+    description: Dev server
+security:
+  - BearerAuth: []
+
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Registrar un nuevo usuario
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterDto"
+      responses:
+        "201":
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_AuthResponseDto"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "409":
+          description: Email ya registrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_Fail"
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Iniciar sesión
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginDto"
+      responses:
+        "200":
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_AuthResponseDto"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /product:
+    get:
+      tags: [Product]
+      summary: Obtener todos los productos activos
+      responses:
+        "200":
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_ProductDtoArray"
+    post:
+      tags: [Product]
+      summary: Crear un nuevo producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductDto"
+      responses:
+        "201":
+          description: Producto creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_ProductDto"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+  /product/{id}:
+    get:
+      tags: [Product]
+      summary: Obtener un producto por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_ProductDto"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      tags: [Product]
+      summary: Actualizar un producto existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProductDto"
+      responses:
+        "200":
+          description: Producto actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_ProductDto"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [Product]
+      summary: Eliminar un producto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Producto eliminado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse_Bool"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    ValidationError:
+      description: Error de validación
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiResponse_Fail"
+    Unauthorized:
+      description: Credenciales inválidas
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiResponse_Fail"
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiResponse_Fail"
+
+  schemas:
+    # --- Auth DTOs ---
+    RegisterDto:
+      type: object
+      required: [fullName, email, password]
+      properties:
+        fullName:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Nombre completo del usuario
+        email:
+          type: string
+          format: email
+          maxLength: 150
+        password:
+          type: string
+          minLength: 8
+          maxLength: 100
+          pattern: ^(?=.*[A-Z])(?=.*\d).{8,}$
+          description: Debe incluir al menos una mayúscula y un número
+
+    LoginDto:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthResponseDto:
+      type: object
+      required: [id, email, fullName, token, expiresAt]
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        fullName:
+          type: string
+        token:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+
+    # --- Product DTOs ---
+    CreateProductDto:
+      type: object
+      required: [name, price, stock]
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+          nullable: true
+        price:
+          type: number
+          minimum: 0
+        stock:
+          type: integer
+          minimum: 0
+        isActive:
+          type: boolean
+          default: true
+
+    UpdateProductDto:
+      type: object
+      required: [id, name, price, stock]
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+          nullable: true
+        price:
+          type: number
+          minimum: 0
+        stock:
+          type: integer
+          minimum: 0
+        isActive:
+          type: boolean
+
+    ProductDto:
+      type: object
+      required: [id, name, price, stock, isActive, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+        stock:
+          type: integer
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    # --- Generic envelope ---
+    ApiResponse_Fail:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum: [false]
+        message:
+          type: string
+
+    ApiResponse_AuthResponseDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        message:
+          type: string
+          nullable: true
+        data:
+          $ref: "#/components/schemas/AuthResponseDto"
+
+    ApiResponse_ProductDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+          nullable: true
+        data:
+          $ref: "#/components/schemas/ProductDto"
+
+    ApiResponse_ProductDtoArray:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+          nullable: true
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDto"
+
+    ApiResponse_Bool:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+          nullable: true
+        data:
+          type: boolean

@@ -1,21 +1,12 @@
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
+import type { components } from './generated/api-types';
 
-export interface RegisterRequest {
-  fullName: string;
-  email: string;
-  password: string;
-}
+type GeneratedLoginDto = components['schemas']['LoginDto'];
+type GeneratedRegisterDto = components['schemas']['RegisterDto'];
+type GeneratedAuthResponseDto = components['schemas']['AuthResponseDto'];
 
-export interface AuthUserData {
-  id: number;
-  email: string;
-  fullName: string;
-  token: string;
-  expiresAt: string;
-}
+export interface LoginRequest extends GeneratedLoginDto {}
+export interface RegisterRequest extends GeneratedRegisterDto {}
+export interface AuthUserData extends GeneratedAuthResponseDto {}
 
 export interface ApiResponse<T> {
   success: boolean;
