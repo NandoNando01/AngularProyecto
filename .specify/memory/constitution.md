@@ -1,7 +1,4 @@
-<!-- Sync Impact Report: v1.0.0 → v1.1.0. Nuevo principio VI agregado (Documentación técnica). Gobierno actualizado con cláusula de enmiendas documentadas en /docs. Sin elementos pendientes. -->
-
 # Constitución de Angula_Proyecto
-<!-- Constitución de especificaciones para la aplicación full-stack AngularProyecto -->
 
 ## Principios Fundamentales
 
@@ -22,6 +19,9 @@ Autenticación JWT Bearer token con hash de contraseñas PBKDF2 + SHA-256. Todos
 
 ### VI. Documentación Técnica
 Todo cambio significativo en cualquier subproyecto (`Api/` o `mi-app/`) DEBE documentarse con un resumen técnico en `docs/`. Cada feature o cambio genera un archivo `docs/YYYY-MMDD-breve-descripcion.md` que explica: qué se cambió, por qué, y cómo afecta al otro stack (si aplica). La documentación es un entregable obligatorio del cambio, no un accesorio opcional.
+
+### VII. Patrones Creacionales y Arquitectura de Diseño
+La inyección de dependencias DEBE realizarse siempre por constructor — nunca instanciar servicios manualmente con `new`. Los servicios se registran como singletons en el contenedor DI del framework (ASP.NET Core / Angular) y DEBEN ser stateless: no almacenar estado mutable entre requests. Los DTOs son los únicos contratos de datos que cruzan capas y carpetas; nunca exponer entidades de dominio directamente. Las carpetas `Utils/` en backend (`Api/Utils/`) y frontend (`src/app/utils/`) DEBEN contener solo helpers puros, funciones de transformación y reutilizables sin efectos secundarios ni lógica de negocio. Los pipes de Angular DEBEN ser puros (implementar `PipeTransform` sin estado interno) y cada pipe DEBE tener su propio archivo `.pipe.ts` con test unitario asociado. Ningún componente o servicio DEBE depender de instancias globales mutables — el estado compartido se maneja exclusivamente mediante Signals (Angular) o inyección controlada (backend).
 
 ## Stack Tecnológico
 
@@ -49,4 +49,4 @@ Los comandos se ejecutan desde los directorios de cada subproyecto (no desde la 
 
 Esta constitución prevalece sobre todas las demás prácticas. Las enmiendas requieren documentación, aprobación y plan de migración. Todos los PRs deben verificar cumplimiento con `specs/openapi.yaml`. La complejidad debe justificarse — empezar simple, principios YAGNI. Usar los archivos `AGENTS.md` como guía de desarrollo en tiempo de ejecución a nivel de proyecto.
 
-**Versión**: 1.1.0 | **Ratificada**: 2026-10-01 | **Última enmienda**: 2026-10-01
+**Versión**: 1.2.0 | **Ratificada**: 2026-10-01 | **Última enmienda**: 2026-10-01
