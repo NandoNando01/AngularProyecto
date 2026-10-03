@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.analytics-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  min-width: 0;
+}
+
+.analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  min-width: 0;
+}
+
+.analytics-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.period-toggle {
+  display: flex;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.period-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+
+.period-btn.active {
+  background: #e84a9c;
+  color: #ffffff;
+}
+
+.period-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.analytics-chart-wrapper {
+  position: relative;
+  height: 260px;
+}

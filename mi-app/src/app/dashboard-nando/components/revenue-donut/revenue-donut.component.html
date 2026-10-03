@@ -1,0 +1,20 @@
+<div class="donut-card">
+  <h3 class="donut-title">Total Revenue</h3>
+  <div class="donut-wrapper">
+    <div class="donut-center">
+      <span class="donut-center-label">Revenue</span>
+      <span class="donut-center-value">{{ data.percentage }}%</span>
+    </div>
+    <canvas #donutCanvas></canvas>
+  </div>
+  <div class="donut-footer">
+    <div class="donut-footer-item">
+      <span class="footer-label">Total sales made today</span>
+      <span class="footer-value">${{ data.totalSalesToday }}</span>
+    </div>
+    <div class="donut-footer-item">
+      <span class="footer-label">Yesterday Sales</span>
+      <span class="footer-value">${{ data.yesterdaySales }}</span>
+    </div>
+  </div>
+</div>

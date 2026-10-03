@@ -1,0 +1,32 @@
+<div class="nando-layout">
+  <app-sidebar class="nando-sidebar" [class.open]="sidebarOpen()" />
+
+  @if (sidebarOpen()) {
+    <div class="sidebar-backdrop" (click)="toggleSidebar()"></div>
+  }
+
+  <main class="nando-content">
+    <div class="mobile-bar">
+      <button class="hamburger-btn" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <app-header />
+
+    <div class="kpi-grid">
+      @for (kpi of kpiData; track kpi.title) {
+        <app-stat-card [data]="kpi" class="kpi-cell" />
+      }
+    </div>
+
+    <div class="charts-row">
+      <app-revenue-donut class="charts-donut" />
+      <app-sales-analytics class="charts-analytics" />
+    </div>
+
+    <div class="bottom-row">
+      <app-top-users-balances class="bottom-users" />
+      <app-revenue-history class="bottom-history" />
+    </div>
+  </main>
+</div>

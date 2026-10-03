@@ -1,0 +1,20 @@
+<div class="stat-card" [style.--gradient-start]="data().gradientStart" [style.--gradient-end]="data().gradientEnd">
+  <div class="stat-card-body">
+    <div class="stat-left">
+      <div class="stat-icon">
+        <mat-icon>{{ data().icon }}</mat-icon>
+      </div>
+      <span class="stat-title">{{ data().title }}</span>
+      <span class="stat-value">{{ data().value }}</span>
+    </div>
+    <div class="stat-right">
+      <svg class="progress-ring" viewBox="0 0 36 36" width="36" height="36">
+        <circle class="progress-bg" cx="18" cy="18" r="15" fill="none" stroke-width="3" />
+        <circle class="progress-fill" cx="18" cy="18" r="15" fill="none" stroke-width="3"
+          [attr.stroke-dasharray]="getCircumference(15)"
+          [attr.stroke-dashoffset]="getOffset(15, data().progress)" />
+      </svg>
+      <span class="progress-label">{{ data().progress }}%</span>
+    </div>
+  </div>
+</div>

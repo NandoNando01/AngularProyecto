@@ -1,0 +1,13 @@
+<header class="header">
+  <div class="header-left">
+    <h1 class="header-title">Dashboard</h1>
+  </div>
+  <div class="header-right">
+    <div class="user-avatar">{{ initial }}</div>
+    <div class="user-info">
+      <span class="user-name">{{ displayName }}</span>
+      <span class="user-id">{{ displayEmail }}</span>
+    </div>
+    <button class="logout-btn" (click)="logout()" title="Cerrar sesión">Salir</button>
+  </div>
+</header>

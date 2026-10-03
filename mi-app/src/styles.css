@@ -1,6 +1,43 @@
-html, body { height: 100%; }
-body {
+:root {
+  --font-primary: 'Montserrat', 'Helvetica Neue', sans-serif;
+  --color-dark-purple: #3d2a6e;
+  --color-mid-purple: #7a4a8c;
+  --color-pink-mauve: #c0728f;
+  --color-error: #d6336c;
+
+  --bg: #1a1550;
+  --panel: #201a5e;
+  --panel-border: rgba(139, 120, 255, 0.25);
+  --primary: #5b43d6;
+  --text: #ffffff;
+  --text-muted: #a9a7d1;
+  --accent-cyan: #2fd8d8;
+  --accent-pink: #e84a9c;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #f0f2f5;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Roboto', var(--font-primary);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-icons {
+  width: 1.25rem;
+  height: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  overflow: hidden;
 }

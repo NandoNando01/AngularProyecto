@@ -1,0 +1,16 @@
+<div class="analytics-card">
+  <div class="analytics-header">
+    <h3 class="analytics-title">Sales Analytics</h3>
+    <div class="period-toggle">
+      @for (p of periods; track p.key) {
+        <button class="period-btn" [class.active]="activePeriod() === p.key"
+          (click)="setPeriod(p.key)">
+          {{ p.label }}
+        </button>
+      }
+    </div>
+  </div>
+  <div class="analytics-chart-wrapper">
+    <canvas #salesChart></canvas>
+  </div>
+</div>

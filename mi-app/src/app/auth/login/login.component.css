@@ -1,78 +1,250 @@
 :host {
-  display: flex;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
   min-height: 100dvh;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 1rem;
+  background: linear-gradient(180deg, #3d2a6e 0%, #7a4a8c 50%, #c0728f 100%);
+  overflow: hidden;
+  position: relative;
 }
 
-mat-card {
-  width: 100%;
-  max-width: 400px;
-  padding: 2rem 1.75rem;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  box-sizing: border-box;
+.bg-stars, .shooting-star, .bg-dunes {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+}
+.bg-stars {
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.shooting-star--1 { top: 8%; left: 72%; width: 18vw; height: 18vw; }
+.shooting-star--2 { top: 28%; left: 78%; width: 22vw; height: 22vw; }
+.shooting-star--3 { top: 16%; left: 6%; width: 16vw; height: 16vw; }
+.shooting-star--4 { top: 40%; left: 65%; width: 20vw; height: 20vw; }
+.shooting-star--5 { top: 48%; left: 3%; width: 14vw; height: 14vw; }
+.bg-dunes {
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 30vh;
+}
+.dune-layer--back { fill: #e8a0b4; opacity: 0.85; }
+.dune-layer--mid { fill: #7b4f93; opacity: 0.8; }
+.dune-layer--front { fill: #5b3a7a; opacity: 0.9; }
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(280px, 30vw, 360px);
+  border-radius: 2px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  overflow: hidden;
+  z-index: 1;
+  min-width: 0;
 }
 
-.full-width {
+.card-illustration {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  background: linear-gradient(180deg, #4a3280 0%, #d98aa5 100%);
+  min-height: 240px;
+  min-width: 0;
+  overflow: hidden;
+}
+.card-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.card-moon {
+  position: absolute;
+  top: 18%;
+  right: 12%;
+  width: 15%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #f0c8d0, #e59aa8);
+  box-shadow: 0 0 12px rgba(229,154,168,0.4);
+  z-index: 2;
+  pointer-events: none;
+}
+.card-dunes {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  margin-bottom: 0.75rem;
+  z-index: 3;
+  pointer-events: none;
+}
+.card-dune--back { fill: #f0b0c0; opacity: 0.9; }
+.card-dune--front { fill: #6a4a8f; opacity: 0.85; }
+
+.card-form {
+  flex: 1;
+  background: #f2f2f4;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
 }
 
 .form-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-  color: #1a1a2e;
+  margin: 0;
+  font: 700 1.6rem/1.2 'Montserrat', sans-serif;
+  color: #1f1f3d;
+  min-width: 0;
 }
 
-.form-subtitle {
-  text-align: center;
-  color: #636e72;
-  margin: 0 0 1.5rem;
-  font-size: 0.875rem;
+.field-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f7a1b5;
+  border-radius: 999px;
+  height: 2.2rem;
+  padding: 0 1rem;
+  min-width: 0;
+}
+.input-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  display: block;
+}
+.form-input {
+  flex: 1;
+  min-width: 0;
+  height: 2.2rem;
+  padding: 0 0.75rem 0 0.5rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  font: 500 0.8rem 'Montserrat', sans-serif;
+  color: #3d2a6e;
+  transition: background-color 9999s;
+}
+.form-input::placeholder {
+  color: #fff;
+  opacity: 0.9;
+  font-size: 0.8rem;
 }
 
-.footer-text {
-  text-align: center;
-  margin: 1.25rem 0 0;
-  color: #636e72;
-  font-size: 0.875rem;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f7a1b5 inset !important;
+  -webkit-text-fill-color: #1f1f3d !important;
 }
 
-.footer-text a {
-  color: #667eea;
+.field-error {
+  min-height: 1.2em;
+  font: 400 0.65rem/1.2 'Montserrat', sans-serif;
+  color: #d6336c;
+  padding: 0.1rem 0 0 0.25rem;
+  min-width: 0;
+}
+
+.row-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 0;
+}
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  min-width: 0;
+}
+.toggle-input { display: none; }
+.toggle-track {
+  width: 2rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: #d0d0d4;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.toggle-input:checked + .toggle-track { background: #5b3f8c; }
+.toggle-knob {
+  position: absolute;
+  top: 0.1rem;
+  left: 0.1rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.2s;
+}
+.toggle-input:checked + .toggle-track .toggle-knob { left: 1.1rem; }
+.toggle-text {
+  font: 400 0.7rem 'Montserrat', sans-serif;
+  color: #555;
+  line-height: 1.2;
+  min-width: 0;
+}
+
+.forgot-link {
+  font: 400 0.7rem 'Montserrat', sans-serif;
+  color: #555;
+  line-height: 1.2;
   text-decoration: none;
-  font-weight: 500;
+  cursor: pointer;
+  min-width: 0;
 }
+.forgot-link:hover { text-decoration: underline; }
 
-.footer-text a:hover {
-  text-decoration: underline;
+.login-btn {
+  width: 100%;
+  height: 2rem;
+  border: none;
+  border-radius: 2px;
+  background: #6b4a86;
+  color: #fff;
+  font: 500 0.85rem 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-width: 0;
 }
+.login-btn:hover:not(:disabled) { background: #593a73; }
+.login-btn:disabled { opacity: 0.6; cursor: default; }
 
 .error-banner {
   background: #fff5f5;
   color: #c53030;
   padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-size: 0.825rem;
+  border-radius: 2px;
+  font: 400 0.75rem 'Montserrat', sans-serif;
   border: 1px solid #fed7d7;
+  min-width: 0;
 }
 
-button[mat-flat-button] {
-  height: 46px;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  margin-top: 0.25rem;
-  letter-spacing: 0.3px;
+.create-account-link {
+  display: block;
+  text-align: center;
+  font: 400 0.7rem 'Montserrat', sans-serif;
+  color: #555;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  min-width: 0;
 }
+.create-account-link:hover { text-decoration: underline; }
 
-mat-form-field {
-  --mdc-outlined-text-field-outline-color: #e2e8f0;
-  --mdc-outlined-text-field-focus-outline-color: #667eea;
-  --mdc-outlined-text-field-label-text-color: #718096;
+@media (max-width: 599px) {
+  .login-card { width: 88vw; }
+  .bg-dunes { height: 18vh; }
+  .card-illustration { min-height: 160px; }
 }

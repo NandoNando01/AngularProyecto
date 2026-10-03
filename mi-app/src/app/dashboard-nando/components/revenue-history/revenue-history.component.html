@@ -1,0 +1,36 @@
+<div class="history-card">
+  <h3 class="history-title">Revenue History</h3>
+  <div class="table-container">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Marketplaces</th>
+          <th>Date</th>
+          <th>Payouts</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of items; track $index) {
+          <tr>
+            <td class="cell-marketplace">{{ item.marketplace }}</td>
+            <td class="cell-date">{{ item.date }}</td>
+            <td class="cell-payouts">${{ item.payouts | number:'1.0-0' }}</td>
+            <td>
+              <span class="status-badge" [class.completed]="item.status === 'Completed'"
+                [class.pending]="item.status === 'Pending'"
+                [class.cancelled]="item.status === 'Cancelled'">
+                {{ item.status }}
+              </span>
+            </td>
+            <td class="cell-actions">
+              <button class="action-btn" title="View">&#128065;</button>
+              <button class="action-btn" title="Edit">&#9998;</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

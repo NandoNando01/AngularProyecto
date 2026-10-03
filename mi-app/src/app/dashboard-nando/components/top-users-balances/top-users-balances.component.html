@@ -1,0 +1,21 @@
+<div class="users-card">
+  <h3 class="users-title">Top 5 Users Balances</h3>
+  <div class="users-list">
+    @for (user of users; track user.name) {
+      <div class="user-row">
+        <div class="user-left">
+          <div class="user-avatar">{{ user.avatarInitial }}</div>
+          <div class="user-meta">
+            <span class="user-name">{{ user.name }}</span>
+            <span class="user-member">Member Since {{ user.memberSince }}</span>
+          </div>
+        </div>
+        <div class="user-right">
+          <span class="user-currency">{{ user.currency }}</span>
+          <span class="user-btc">{{ user.amountBtc }} BTC</span>
+          <span class="user-usd">${{ user.amountUsd | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

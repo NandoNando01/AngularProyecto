@@ -1,0 +1,47 @@
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <div class="brand-rhombus"></div>
+    </div>
+    <span class="brand-text">NANDO</span>
+  </div>
+
+  <div class="sidebar-search">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input class="search-input" type="text" placeholder="Search..." />
+  </div>
+
+  <div class="sidebar-section">
+    <span class="section-title">Menu</span>
+    @for (item of menuItems; track item.label) {
+      <a class="menu-item" [class.active]="item.active">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </div>
+
+  <div class="sidebar-section">
+    <span class="section-title">Manage</span>
+    @for (item of manageItems; track item.label) {
+      <a class="menu-item">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </div>
+
+  <div class="sidebar-upgrade">
+    <div class="upgrade-icon">
+      <mat-icon>verified_user</mat-icon>
+    </div>
+    <span class="upgrade-title">Go Pro</span>
+    <p class="upgrade-text">Stay connected with your team</p>
+    <button class="upgrade-btn">Upgrade Now</button>
+  </div>
+
+  <div class="sidebar-logout" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Salir</span>
+  </div>
+</div>
